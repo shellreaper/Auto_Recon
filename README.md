@@ -15,3 +15,4 @@ sudo ./auto_recon.sh example.com example_dir #sudo is used to perform naabu syn 
 - dnsx
 - httpx
 - assetfinder
+- Seclists( in /usr/share/)
