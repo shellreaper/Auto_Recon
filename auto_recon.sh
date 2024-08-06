@@ -132,6 +132,6 @@ if [ "$skip" = false ]; then
     echo "[*] Running Nuclei for vulnerability scanning..."
     nuclei -l "$OUTPUT_FOLDER/subdomains.txt" -t ~/nuclei-templates/ -o "$OUTPUT_FOLDER/nuclei_results.txt" -es info
 fi
-
+sudo chown -R `whoami`:`whoami` $OUTPUT_FOLDER/
 echo -e "\e[1;32m[*] Recon phase completed.\e[0m"
 
