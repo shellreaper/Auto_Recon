@@ -85,7 +85,7 @@ if [ "$skip" = false ]; then
 
     # Perform DNS bruteforcing with dnsx and Jhaddix wordlist on the root domain
     echo "[*] Performing DNS bruteforcing with dnsx and Jhaddix wordlist on the root domain..."
-    dnsx -l "$DOMAIN" -w /usr/share/seclists/Discovery/DNS/dns-Jhaddix.txt -o "$OUTPUT_FOLDER/dnsx_bruteforce.txt" -r 1000
+    dnsx -l "$DOMAIN" -w /usr/share/seclists/Discovery/DNS/dns-Jhaddix.txt -o "$OUTPUT_FOLDER/dnsx_bruteforce.txt" -r /usr/share/seclists/Miscellaneous/dns-resolvers.txt
 
     # Combine dnsx results with existing subdomains
     echo "[*] Combining dnsx results with existing subdomains..."
@@ -130,7 +130,7 @@ skip=false
 if [ "$skip" = false ]; then
     display_screen "Vulnerability Scanning"
     echo "[*] Running Nuclei for vulnerability scanning..."
-    nuclei -l "$OUTPUT_FOLDER/subdomains.txt" -t ~/nuclei-templates/ -o "$OUTPUT_FOLDER/nuclei_results.txt"
+    nuclei -l "$OUTPUT_FOLDER/subdomains.txt" -t ~/nuclei-templates/ -o "$OUTPUT_FOLDER/nuclei_results.txt" -es info
 fi
 
 echo -e "\e[1;32m[*] Recon phase completed.\e[0m"
