@@ -77,15 +77,15 @@ if [ "$skip" = false ]; then
     assetfinder --subs-only "$DOMAIN" > "$OUTPUT_FOLDER/assetfinder.txt"
 
     # Running subdomain enumeration with other tools
-    echo "[*] Running subdomain enumeration with other tools..."
-    amass enum -d "$DOMAIN" -o "$OUTPUT_FOLDER/amass.txt"
+    echo "[*] Running subdomain enumeration with amass and subfinder..."
+    amass enum -d "$DOMAIN" -o "$OUTPUT_FOLDER/amass.txt" -passive -v
     # Filtering Amass results to include only plain subdomains
     awk -F'|' '{print $2}' "$OUTPUT_FOLDER/amass.txt" | grep -Eo '[a-zA-Z0-9._-]+\.'"$DOMAIN" > "$OUTPUT_FOLDER/amass_filtered.txt"
     subfinder -d "$DOMAIN" -o "$OUTPUT_FOLDER/subfinder.txt"
 
     # Perform DNS bruteforcing with dnsx and Jhaddix wordlist on the root domain
     echo "[*] Performing DNS bruteforcing with dnsx and Jhaddix wordlist on the root domain..."
-    dnsx -l "$DOMAIN" -w /usr/share/seclists/Discovery/DNS/dns-Jhaddix.txt -o "$OUTPUT_FOLDER/dnsx_bruteforce.txt" -r /usr/share/seclists/Miscellaneous/dns-resolvers.txt
+   # dnsx -d "$DOMAIN" -w /usr/share/seclists/Discovery/DNS/dns-Jhaddix.txt -o "$OUTPUT_FOLDER/dnsx_bruteforce.txt" -r /usr/share/seclists/Miscellaneous/dns-resolvers.txt
 
     # Combine dnsx results with existing subdomains
     echo "[*] Combining dnsx results with existing subdomains..."
@@ -110,7 +110,7 @@ if [ "$skip" = false ]; then
     mkdir -p "$OUTPUT_FOLDER/naabu"
 
     # Run Naabu port scanning
-    naabu -l "$OUTPUT_FOLDER/subdomains.txt" -o "$OUTPUT_FOLDER/naabu/naabu.txt" --rate 10000 -p- -s s
+    naabu -l "$OUTPUT_FOLDER/subdomains.txt" -o "$OUTPUT_FOLDER/naabu/naabu.txt" --rate 10000 -p 0-65535 -s s
 fi
 
 # Reset Ctrl+C flag
