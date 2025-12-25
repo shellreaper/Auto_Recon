@@ -10,7 +10,7 @@ chmod +x setup.sh
 
 ### Usage:
 ```bash
-sudo ./auto_recon.sh example.com example_dir #sudo is used to perform naabu syn scan
+./auto_recon.sh example.com example_dir 
 ```
 
 ### Tools required(run setup.sh to install them all):
