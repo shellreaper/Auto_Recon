@@ -18,7 +18,8 @@ sudo ./auto_recon.sh example.com example_dir #sudo is used to perform naabu syn 
 - subfinder
 - nuclei
 - naabu
-- dnsx
+- puredns
+- dnsgen
 - httpx
 - assetfinder
 - Seclists( in /usr/share/)
